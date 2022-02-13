@@ -15,13 +15,27 @@ function SelectFolder(e) {
     // Clear Table
     document.getElementById('imagelist_tbody').innerHTML = '';
 
+    let directory = '';
+
     let count = 0;
     for (var i = 0; i < e.target.files.length; i++) {
 
-        let imageName = e.target.files[i].name;
-        //console.log(e.target.files[i]);
-        AddRow(imageName, GetFileCreateDate(e.target.files[i].path));
-        count += 1;
+        let file = e.target.files[i];
+        let imageName = file.name;
+        let path = file.path;
+        if (directory === ''){  
+            directory = path.replace(imageName, '');
+        }
+
+        // console.log(directory);
+        // console.log(file);
+        // console.log(directory + imageName);
+        // console.log(path);
+
+        if (directory + imageName == path){
+            AddRow(imageName, GetFileCreateDate(e.target.files[i].path));
+            count += 1;
+        }    
     }
     document.getElementById('imagecount_h').innerHTML = `Number of images found = ${count}`;
 
