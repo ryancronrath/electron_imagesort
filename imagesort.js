@@ -6,52 +6,83 @@ window.addEventListener('DOMContentLoaded', () => {
 })
 
 function SetupEvents() {
-    document.getElementById('folder_input').addEventListener('change', function (e) { SelectFolder(e) });
+    document.getElementById('folder_input').addEventListener('change', function (e) {
+        document.getElementById('imagelist_tbody').innerHTML = '';  // Clear Table
+        SelectFolder(e)
+    });
 }
 
 
 function SelectFolder(e) {
+    let imageList = [];
+    let directory = '';  // Stores the initial directory.
 
-    // Clear Table
-    document.getElementById('imagelist_tbody').innerHTML = '';
-
-    let directory = '';
-
-    let count = 0;
-    for (var i = 0; i < e.target.files.length; i++) {
-
+    for (let i = 0; i < e.target.files.length; i++) {
         let file = e.target.files[i];
-        let imageName = file.name;
-        let path = file.path;
-        if (directory === ''){  
-            directory = path.replace(imageName, '');
+
+        // Set the directory to the first directory that contains a file
+        if (directory === '') {
+            directory = file.path.replace(file.name, '');
         }
 
-        // console.log(directory);
-        // console.log(file);
-        // console.log(directory + imageName);
-        // console.log(path);
+        // This prevents further sub folders from being accessed.  Only if the original directory 
+        // contains the file will the file be added.
+        if (directory + file.name == file.path) {
 
-        if (directory + imageName == path){
-            AddRow(imageName, GetFileCreateDate(e.target.files[i].path));
-            count += 1;
-        }    
+            if (IsImage(file.name) === true) {
+                let image = { name: file.name, path: file.path, date: GetFileCreateDate(file.path) };
+                imageList.push(image);
+            }
+        }
+        else {
+            break;
+        }
     }
-    document.getElementById('imagecount_h').innerHTML = `Number of images found = ${count}`;
+    console.table(imageList);
 
+    AddRows(imageList);
+
+    // Set display count and directory
+    document.getElementById('imagecount_h').innerHTML = `Number of images found = ${imageList.length}`;
+    document.getElementById('searchFolder_h').innerHTML = `Folder: ${directory}`;
 }
 
-function AddRow(imageName, fileCreateDate) {
+function IsImage(filename) {
+
+    let name = filename.toLowerCase();
+
+    if (name.endsWith('.jpg') || name.endsWith('.jpeg')) {
+        return true;
+    }
+    else if (name.endsWith('.nef')) {
+        return true;
+    }
+    else if (name.endsWith('.gif')) {
+        return true;
+    }
+    else if (name.endsWith('.png')) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+function AddRows(imageList, directory) {
+    for (let i = 0; i < imageList.length; i++) {
+        AddRow(imageList[i]);
+    }
+}
+
+function AddRow(image) {
 
     let table = document.getElementById('imagelist_tbody');
     let rowCount = table.querySelectorAll('tr');
     let row = table.insertRow(rowCount.length);
     let cell1 = row.insertCell(0);
-    cell1.innerHTML = imageName;
+    cell1.innerHTML = image.name;
     let cell2 = row.insertCell(1);
-    cell2.innerHTML = fileCreateDate
-
-
+    cell2.innerHTML = image.date;
 }
 
 function GetFileCreateDate(path) {
