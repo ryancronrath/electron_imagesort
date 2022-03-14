@@ -1,3 +1,6 @@
+const ExifImage = require('exif').ExifImage;
+const Luxon = require('luxon').DateTime;
+
 
 // All of the Node.js APIs are available in the preload process.
 // It has the same sandbox as a Chrome extension.
@@ -30,6 +33,7 @@ function SelectFolder(e) {
         if (directory + file.name == file.path) {
 
             if (IsImage(file.name) === true) {
+                
                 let image = { name: file.name, path: file.path, date: GetFileCreateDate(file.path) };
                 imageList.push(image);
             }
@@ -38,7 +42,6 @@ function SelectFolder(e) {
             break;
         }
     }
-    console.table(imageList);
 
     AddRows(imageList);
 
@@ -86,15 +89,24 @@ function AddRow(image) {
 }
 
 function GetFileCreateDate(path) {
+    try {
+        new ExifImage({ image : path }, function (error, exifData) {
+            if (error) {
+                console.log('Error: ' + error.message);
+            }
+            else {
+                var date = Luxon.fromFormat(exifData.exif.CreateDate, "yyyy:MM:dd HH:mm:ss");        
+                let day = date.day;
+                let month = date.month;
+                let year = date.year;
+                let createdate = `${month}/${day}/${year}`;
+                console.log(createdate);
+                return createdate;
+            }         
+        });
 
-    const fs = require('fs');
-    var dateCreated = new Date(fs.statSync(path).birthtime);
+    } catch (error) {
+        console.log('Error: ' + error.message);
+    }
 
-    let day = dateCreated.getDate();
-    let month = dateCreated.getMonth() + 1;
-    let year = dateCreated.getFullYear();
-
-    let createdate = `${month}/${day}/${year}`;
-
-    return createdate;
 }
