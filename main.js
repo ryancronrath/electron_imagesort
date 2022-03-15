@@ -4,12 +4,15 @@ const path = require('path')
 
 
 function createWindow () {
+
+
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
     webPreferences: {
-      preload: path.join(app.getAppPath(), 'imagesort.js')
+      preload: require('luxon'), 
+      preload: path.join(app.getAppPath(), 'imagesort.js'),
     }
   })
 
