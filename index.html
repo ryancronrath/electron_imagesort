@@ -14,12 +14,12 @@
 
     <div class="container-fluid">
 
-      <div class="mt-5">
+      <!-- <div class="mt-5">
         <h3>Welcome to ImageSort</h3>
-        <p>This app let's you select a folder of images, review those images for EXIF data, and if EXIF data is found, migrate those files to a dated folder.</p>
-      </div>
+        <p>This app let's you select a folder of images, review those images for EXIF data, and if EXIF data is found, sort those files to the EXIF createdate nameedd folder.</p>
+      </div> -->
 
-      <div class="row mt-3">
+      <div class="row mt-5">
         <div class="col-3">
           <label class="btn btn-primary btn-sm mb-3" for="folder_input">Select Folder</button>
           <input class="form-control" id='folder_input' type="file" webkitdirectory mozdirectory directory multiple="multiple" style="display: none;" />
@@ -29,16 +29,12 @@
       <div class="row">
         <div class="col">
           <h5 id="imagecount_h">Number of images found = 0 </h5>
-
           <div class="row">
             <div class="col-md-8">
               <h5 id="searchFolder_h">Folder: </h5>
-            </div>
-     
+            </div>     
           </div>
-
-          <div class="row mt-5">
- 
+          <div class="row mt-5"> 
             <div class="col-md-auto">
               <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">Migrate
               </button>
@@ -47,8 +43,6 @@
               <small style="display: none;"  id="migration_message">Migration Complete</small>
             </div>
           </div>
-
-
         </div>
       </div>
 
@@ -57,8 +51,8 @@
           <table class="table table-bordered" id="imagelist_table">
             <thead class="table-dark">
               <th scope="col">Image</th>
-              <th scope="col">Create Date</th>
-              <th scope="col">Migrate Y/N</th>
+              <th scope="col">Create Date</th>       
+              <th scope="col">Migrated</th>           
             </thead>
             <tbody id="imagelist_tbody">
   
