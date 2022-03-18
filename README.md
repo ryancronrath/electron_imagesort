@@ -44,7 +44,7 @@ Start the app
 
 ## Deployment
 
-To deploy this project run
+To deploy this project run following command from /src folder
 
 ```bash
   npx electron-packager . 'ImageSort' --all  --out="//path/to/out/directory"
