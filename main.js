@@ -10,6 +10,7 @@ function createWindow () {
   const mainWindow = new BrowserWindow({
     width: 1000,
     height: 800,
+    icon: __dirname + '/resources/folders.png',
     webPreferences: {
       preload: require('luxon'), 
       preload: path.join(app.getAppPath(), 'imagesort.js'),
