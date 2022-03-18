@@ -99,9 +99,6 @@ function IsImage(filename) {
     else if (name.endsWith('.nef')) {
         return true;
     }
-    else if (name.endsWith('.gif')) {
-        return true;
-    }
     else if (name.endsWith('.png')) {
         return true;
     }
