@@ -2,6 +2,32 @@
 
 Image Sort is a work in progress and a first attempt working with npm and electron.  The purpose of the application is to take a directory of images, review the EXIF data - if any, and sort the images into a folder based on the EXIF create date.
 
+## Run Locally
+
+Clone the project
+
+```bash
+  git clone https://github.com/ryancronrath/electron_imagesort.git
+```
+
+Go to the project directory
+
+```bash
+  cd electron_imagesort/src
+```
+
+Install dependencies
+
+```bash
+  npm install
+```
+
+Start the app
+
+```bash
+  npm start
+```
+
 
 ## Features
 
