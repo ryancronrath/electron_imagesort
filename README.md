@@ -42,6 +42,13 @@ Start the app
 - Additional sorting methods using regex to look at the file name and get the date.
 
 
+## Deployment
+
+To deploy this project run
+
+```bash
+  npx electron-packager . 'ImageSort' --all  --out="//path/to/out/directory"
+```
 
 ## Authors
 
